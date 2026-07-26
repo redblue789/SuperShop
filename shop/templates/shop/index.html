@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEARL Luxury</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-block">
+            <h1>PEARL <span>Luxury</span></h1>
+            <p>Premium Jewelry Collection</p>
+        </div>
+
+        <nav>
+            <a href="#home">Головна</a>
+            <a href="#catalog">Каталог</a>
+            <a href="#about">Про нас</a>
+            <a href="#reviews">Відгуки</a>
+        </nav>
+
+        <button class="cart-button" onclick="toggleCart()">
+            🛒 Кошик
+            <span id="cart-count">0</span>
+        </button>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="subtitle">Luxury & Elegance</p>
+            <h2>Ювелірні прикраси, що підкреслюють стиль</h2>
+            <p class="hero-text">
+                Сучасний магазин преміальних прикрас з акцентом на комфорт, естетику та інтерактивність.
+            </p>
+            <div class="hero-actions">
+                <a href="#catalog" class="primary-btn">Переглянути каталог</a>
+                <button class="secondary-btn">Нові колекції</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="container" id="catalog">
+        <div class="section-header">
+            <div>
+                <p class="section-subtitle">Каталог</p>
+                <h2>Популярні товари</h2>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="filterProducts('all', this)">Усі</button>
+                <button class="tab" onclick="filterProducts('necklace', this)">Кольє</button>
+                <button class="tab" onclick="filterProducts('ring', this)">Каблучки</button>
+                <button class="tab" onclick="filterProducts('earrings', this)">Сережки</button>
+            </div>
+        </div>
+
+        <section class="product-grid">
+            {% for product in products %}
+            <article class="card" data-category="{{ product.category }}">
+                <div class="image-wrapper">
+                    <img src="{{ product.image }}" alt="{{ product.name }}">
+                    <span class="badge">Luxury</span>
+                </div>
+
+                <div class="card-content">
+                    <h3>{{ product.name }}</h3>
+                    <p class="description">{{ product.description }}</p>
+
+                    <div class="card-footer">
+                        <div>
+                            <p class="price">{{ product.price }}</p>
+                            <span class="stock">В наявності</span>
+                        </div>
+
+                        <button class="buy-btn" onclick="addToCart('{{ product.name }}')">
+                            Додати
+                        </button>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+
+    <section class="features" id="about">
+        <div class="feature-card">
+            <h3>Преміальна якість</h3>
+            <p>Сучасний дизайн, якісні матеріали та елегантний стиль.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Швидка доставка</h3>
+            <p>Оформлення замовлення за декілька кліків із миттєвим відгуком.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Інтерактивний кошик</h3>
+            <p>Кошик реагує анімацією та показує кількість вибраних товарів.</p>
+        </div>
+    </section>
+
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h3>Ваш кошик</h3>
+            <button onclick="toggleCart()">✕</button>
+        </div>
+
+        <ul id="cart-items"></ul>
+    </div>
+
+    <script src="/static/js/cart.js"></script>
+</body>
+</html>
